@@ -27,6 +27,15 @@ namespace civil_engineering.essential.entities
                 return true;
     
             return name.Equals(other.name) && Id.Equals(other.Id);
+            
         }
+        public override string ToString(){
+            return _guid.ToString() + "   " + _name;
+        }
+
+        public override int GetHashCode(){
+            return _guid.GetHashCode() + _name.GetHashCode();
+        }
+        
     }
 }
