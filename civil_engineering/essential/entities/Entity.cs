@@ -2,39 +2,41 @@ using System;
 using System.Collections.Generic;
 
 namespace civil_engineering.essential.entities{
-    public abstract class Entity
+    public  class Entity : IEntity, IEntityId
     {
-        protected static Dictionary<string, Entity> instance = new Dictionary<string, Entity>();
-        public Entity(){}
-        public string name{
+        
+        private Dictionary<EntityId, Entity> _entity_Collection
+            = new Dictionary<EntityId, Entity>();
+        
+        private  void register(){
+            _entity_Collection.Add(Id, this);
+        }
+
+        public Entity(EntityId id){
+            Id = id;
+            register();
+        }
+        public EntityId Id{
             get;
-        } 
-        void register(){
-            instance.Add(name, this);
+            private set;
         }
-        public static Entity get(string name){
-            return instance[name];
+        public virtual  ICollection<IEntity> Parent(){
+            throw new NotImplementedException("The Children Method");
         }
-        protected HashSet<Entity> parents()
-        {
-            return new HashSet<Entity>(); 
+        public virtual ICollection<IEntity> Children(){
+            throw new NotImplementedException("The Parent Method");
         }
-    }
 
-    public class Bridge:Entity{
-        
-        public static  void one(){
-           Bridge x = new Bridge();
-           Entity.instance.Add("11", x);
+        public void addParentAccountability(IAccountability acc){
+            throw new NotImplementedException("The AddParentAccountability Method");
+        }
+        public void addChildrenAccountability(IAccountability acc){
+            throw new NotImplementedException("The addChildAccountability Method");
         }
         
+
     }
 
-    public class stay_bridge: Bridge{
-        public static void some(){
-            stay_bridge y = new stay_bridge();
-            Entity.instance.Add("22", y);
-        }
-    }
+
     
 }

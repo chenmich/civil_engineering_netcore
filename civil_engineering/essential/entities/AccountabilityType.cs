@@ -2,10 +2,15 @@ using System;
 
 namespace civil_engineering.essential.entities
 {
-    abstract public class AccountabilityType
+    public class AccountabilityType: IAccountabilityType
     {
-        public string name{
+        public EntityId Id{
             get;
+            private set;
         }
+        public AccountabilityType(EntityId id){
+            Id = id;
+        }
+        public AccountabilityType(string name):this(new EntityId(name)){}
     }
 }

@@ -36,7 +36,7 @@ namespace civil_engineering.essential.entities
         }
 
         public override int GetHashCode(){
-            return Id.GetHashCode() + Name.GetHashCode();
+            return Id.GetHashCode() ^ Name.GetHashCode();
         }
         
     }
