@@ -3,19 +3,21 @@ using System;
 namespace civil_engineering.essential.entities
 {
     public class EntityId: IEquatable<EntityId>
-    {
-        private Guid _guid = Guid.NewGuid();
-        private string _name;
+    {        
         public Guid Id{
             get;
+            private set;
         }
-        public string name{
-            get{
-                return _name;
-            }
+        public string Name{
+            get;
+            private set;
         }
-        public EntityId(string name){
-            _name = name;
+        public EntityId(Guid id, string name){
+            Name = name;
+            Id = id;
+        }
+        public EntityId(string name):this(Guid.NewGuid(), name){
+            
         }
 
         public bool Equals(EntityId other)
@@ -26,15 +28,15 @@ namespace civil_engineering.essential.entities
             if (ReferenceEquals(this, other))
                 return true;
     
-            return name.Equals(other.name) && Id.Equals(other.Id);
+            return Name.Equals(other.Name) && Id.Equals(other.Id);
             
         }
         public override string ToString(){
-            return _guid.ToString() + "   " + _name;
+            return Id.ToString() + "   " + Name;
         }
 
         public override int GetHashCode(){
-            return _guid.GetHashCode() + _name.GetHashCode();
+            return Id.GetHashCode() + Name.GetHashCode();
         }
         
     }
