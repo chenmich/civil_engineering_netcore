@@ -8,7 +8,7 @@ namespace civil_engineering_test.essential_test
     {
         AccountabilityType affiliation = new AccountabilityType("Affiliation");
 
-        Entity wtwj = new Entity(new EntityId("Wtwj"));
+        Entity some_com = new Entity(new EntityId("Wtwj"));
         Entity zs = new Entity(new EntityId("zs"));
         Entity ls = new Entity(new EntityId("ls"));
 
@@ -16,10 +16,10 @@ namespace civil_engineering_test.essential_test
         [Fact]
         public void SimpleTest()
         {
-            new Accountablility(wtwj, zs, affiliation);
-            new Accountablility(wtwj, ls, affiliation);
-            Assert.True(wtwj.Children().Contains(zs));
-            Assert.True(ls.Parent().Contains(wtwj)); 
+            new Accountablility(some_com, zs, affiliation);
+            new Accountablility(some_com, ls, affiliation);
+            Assert.True(some_com.Children().Contains(zs));
+            Assert.True(ls.Parent().Contains(some_com)); 
         //Given
         
         //When

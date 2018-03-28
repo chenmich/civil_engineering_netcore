@@ -16,9 +16,7 @@ namespace civil_engineering.essential.entities
             Name = name;
             Id = id;
         }
-        public EntityId(string name):this(Guid.NewGuid(), name){
-            
-        }
+        public EntityId(string name):this(Guid.NewGuid(), name){}
 
         public bool Equals(EntityId other)
         {
@@ -38,6 +36,29 @@ namespace civil_engineering.essential.entities
         public override int GetHashCode(){
             return Id.GetHashCode() ^ Name.GetHashCode();
         }
+
+        
+        public override bool Equals(object obj)
+        {
+            //
+            // See the full list of guidelines at
+            //   http://go.microsoft.com/fwlink/?LinkID=85237
+            // and also the guidance for operator== at
+            //   http://go.microsoft.com/fwlink/?LinkId=85238
+            //
+            
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            
+            // TODO: write your implementation of Equals() here
+            Entity fooItem = obj as Entity;
+
+            return fooItem.Id.Equals(this.Id);
+        }
+        
+        
         
     }
 }

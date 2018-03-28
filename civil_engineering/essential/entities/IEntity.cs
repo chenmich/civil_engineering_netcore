@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace civil_engineering.essential.entities
 {
-    public interface IEntity
+    public interface IEntity: IEquatable<IEntity>, IEntityId
     {
         //void register();
         //void clearRegister();
