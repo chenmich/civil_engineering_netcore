@@ -27,6 +27,14 @@ namespace civil_engineering.essential.entities{
             }
             return _result;
         }
+        public virtual HashSet<IEntity> ParentBy(IAccountabilityType accountability_type){
+            HashSet<IEntity> _result = new HashSet<IEntity>();
+            foreach(IAccountability acc in _parent_acc){
+                if (acc.Equals(accountability_type)) _result.Add(acc.Parent);
+            }
+            return _result;
+        }
+
         public virtual HashSet<IEntity> Children(){
             HashSet<IEntity> _result = new HashSet<IEntity>();
             foreach(IAccountability acc in _children_acc){
@@ -41,6 +49,9 @@ namespace civil_engineering.essential.entities{
         public void addChildrenAccountability(IAccountability accountability){
             _children_acc.Add(accountability);
         }
+
+
+
         //The content below are for test quality between two objects
         public  bool Equals(IEntity other){
             if (ReferenceEquals(other, null))

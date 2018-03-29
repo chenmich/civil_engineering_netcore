@@ -2,7 +2,7 @@ using System;
 
 namespace civil_engineering.essential.entities
 {
-    public class Accountablility: IAccountability
+    public class Accountabilility: IAccountability
     {
         public EntityId Id{
             get;
@@ -18,7 +18,7 @@ namespace civil_engineering.essential.entities
             private set;
         }
 
-        public Accountablility(IEntity parent, IEntity child, IAccountabilityType type){
+        public Accountabilility(IEntity parent, IEntity child, IAccountabilityType type){
             Parent = parent;
             Child = child;
             parent.addChildrenAccountability(this);
