@@ -15,13 +15,13 @@ namespace civil_engineering.essential.entities
             "The use of parent and child is a very useful metaphor when discussing hierarchies, 
             or indeed any other kind of directed graph structure. "
         */
-        ICollection<IEntity> Parent();
-        ICollection<IEntity> Children();
+        HashSet<IEntity> Parent();
+        HashSet<IEntity> Children();
         //IEnumerable<IEntity> Ancestors();
         //IEnumerable<IEntity> Descendents();
         //IEnumerable<IEntity> Siblings();
-        void addParentAccountability(IAccountability acc);
-        void addChildrenAccountability(IAccountability acc);
+        void addParentAccountability(IAccountability accountability);
+        void addChildrenAccountability(IAccountability accountability);
     }  
 
     public interface IAccountabilityType :IEntityId{

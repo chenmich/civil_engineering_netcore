@@ -2,7 +2,7 @@ using System;
 
 namespace civil_engineering.essential.entities
 {
-    public class EntityId: IEquatable<EntityId>
+    public  class EntityId: IEquatable<EntityId>
     {        
         public Guid Id{
             get;
@@ -18,6 +18,7 @@ namespace civil_engineering.essential.entities
         }
         public EntityId(string name):this(Guid.NewGuid(), name){}
 
+        //The content below are for the test equality between two object
         public bool Equals(EntityId other)
         {
             if (ReferenceEquals(other, null))
@@ -30,33 +31,36 @@ namespace civil_engineering.essential.entities
             
         }
         public override string ToString(){
-            return Id.ToString() + "   " + Name;
+            return string.Format("EntityID({0}, {1})", Id.ToString(), Name.ToString());
         }
 
         public override int GetHashCode(){
-            return Id.GetHashCode() ^ Name.GetHashCode();
+            return Id.GetHashCode();
         }
 
         
         public override bool Equals(object obj)
         {
-            //
-            // See the full list of guidelines at
-            //   http://go.microsoft.com/fwlink/?LinkID=85237
-            // and also the guidance for operator== at
-            //   http://go.microsoft.com/fwlink/?LinkId=85238
-            //
-            
-            if (obj == null || GetType() != obj.GetType())
+            if (obj == null || !this.GetType().Equals(obj.GetType()))
             {
                 return false;
             }
-            
-            // TODO: write your implementation of Equals() here
-            Entity fooItem = obj as Entity;
+            EntityId entityId = obj as EntityId;
 
-            return fooItem.Id.Equals(this.Id);
+            return entityId.Id.Equals(this.Id);
         }
+        public static bool  operator == (EntityId id1, EntityId id2){
+            if (((object)id1) == null || ((object)id2) == null)
+                return Object.Equals(id1, id2);
+            return id1.Equals(id2);
+        }
+        public static bool operator != (EntityId id1, EntityId id2){
+            if (((object)id1) == null || ((object)id2) == null)
+                return !Object.Equals(id1, id2);
+            return !id1.Equals(id2);
+        }
+    
+    
         
         
         
