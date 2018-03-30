@@ -41,6 +41,7 @@ namespace civil_engineering.essential.entities
         }
     }
 
+    //set a id for any object
     public interface IEntityId{
         EntityId Id{
             get;
