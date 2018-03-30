@@ -36,6 +36,9 @@ namespace civil_engineering.essential.entities
         IEntity Child{
             get;
         }
+        IAccountabilityType Type{
+            get;
+        }
     }
 
     public interface IEntityId{

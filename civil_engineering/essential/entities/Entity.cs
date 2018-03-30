@@ -6,8 +6,8 @@ namespace civil_engineering.essential.entities{
     {       
         private static readonly Dictionary<EntityId, Entity> _entity_Collection
             = new Dictionary<EntityId, Entity>();
-        private static readonly HashSet<IAccountability> _parent_acc = new HashSet<IAccountability>();
-        private static readonly HashSet<IAccountability> _children_acc = new HashSet<IAccountability>(); 
+        private  readonly HashSet<IAccountability> _parent_acc = new HashSet<IAccountability>();
+        private  readonly HashSet<IAccountability> _children_acc = new HashSet<IAccountability>(); 
         private  void register(){
             _entity_Collection.Add(Id, this);
         }
@@ -30,7 +30,7 @@ namespace civil_engineering.essential.entities{
         public virtual HashSet<IEntity> ParentBy(IAccountabilityType accountability_type){
             HashSet<IEntity> _result = new HashSet<IEntity>();
             foreach(IAccountability acc in _parent_acc){
-                if (acc.Equals(accountability_type)) _result.Add(acc.Parent);
+                if (acc.Type.Equals(accountability_type)) _result.Add(acc.Parent);
             }
             return _result;
         }
@@ -91,6 +91,8 @@ namespace civil_engineering.essential.entities{
         }   
 
     }
+
+    
 
 
     

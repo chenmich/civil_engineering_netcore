@@ -13,8 +13,8 @@ namespace civil_engineering_test.essential_test
         Entity ls = new Entity(new EntityId("ls"));
 
         void setup(){
-            new Accountabilility(some_com, zs, affiliation);
-            new Accountabilility(some_com, ls, affiliation);
+            new Accountabilility(some_com, zs, affiliation, "zs in some_com");
+            new Accountabilility(some_com, ls, affiliation, "ls in some_com");
         }
 
         [Fact]
@@ -28,7 +28,7 @@ namespace civil_engineering_test.essential_test
         [Fact]
         public void testParent(){
             setup();
-            new Accountabilility(zs, ls, leardership);
+            new Accountabilility(zs, ls, leardership, "zs is leader of ls");
             Assert.True(ls.Parent().Contains(some_com));
             Assert.True(ls.ParentBy(leardership).Contains(zs));
             Assert.Equal(ls.Parent().Count, 2);

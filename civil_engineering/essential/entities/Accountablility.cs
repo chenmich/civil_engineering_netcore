@@ -17,12 +17,22 @@ namespace civil_engineering.essential.entities
             get;
             private set;
         }
+        public IAccountabilityType Type{
+            get;
+            private set;
+        }
 
-        public Accountabilility(IEntity parent, IEntity child, IAccountabilityType type){
+        public Accountabilility(IEntity parent, IEntity child, IAccountabilityType type, string name)
+        :this(parent, child,type, new EntityId(name)){
+            
+        }
+        public Accountabilility(IEntity parent, IEntity child, IAccountabilityType type, EntityId id){
+            Id = id;
             Parent = parent;
             Child = child;
             parent.addChildrenAccountability(this);
             child.addParentAccountability(this);
+            Type = type;
         }
     }
 }
