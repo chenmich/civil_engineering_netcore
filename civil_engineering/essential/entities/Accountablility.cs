@@ -31,9 +31,9 @@ namespace civil_engineering.essential.entities
             Type = type;
         }
         public static IAccountability create(Entity parent, Entity child, 
-                                                IAccountabilityType accountability_type, EntityId accountability_id){
+                                                AccountabilityType accountability_type, EntityId accountability_id){
             if(!canCreate(parent, child, accountability_type))
-                throw new InvalidAccountabilityException(parent, child, accountability_type, "Invalid Accountability");
+                throw new CycleAccountabilityException(parent, child, accountability_type, "Invalid Accountability");
             else
                 return  new Accountability(parent, child, accountability_type, accountability_id);
 

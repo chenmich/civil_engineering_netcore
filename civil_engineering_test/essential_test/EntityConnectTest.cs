@@ -41,7 +41,7 @@ namespace civil_engineering_test.essential_test
         [Fact]
         public void testCycle(){
             Accountability.create(zs, ls, leadership, new EntityId("zs lead the ls"));
-            Assert.Throws<InvalidAccountabilityException>(()=>Accountability.create(ls, zs, leadership, new EntityId("ls lead the zs")));
+            Assert.Throws<CycleAccountabilityException>(()=>Accountability.create(ls, zs, leadership, new EntityId("ls lead the zs")));
             Assert.True(!zs.Parent().Contains(ls));
             AccountabilityType modelMentor = new AccountabilityType("Model Mentor");
             Accountability.create(ls, zs, modelMentor, new EntityId("ls is Mentor"));

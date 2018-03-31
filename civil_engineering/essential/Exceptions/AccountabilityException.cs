@@ -46,5 +46,22 @@ namespace civil_engineering.essential.Exceptions
                                 IAccountabilityType accountability_type, string message):
             base(parent, child, accountability_type, message){}
     }
+
+    [System.Serializable]
+    public class CycleAccountabilityException : AccountabilityException
+    {
+        public CycleAccountabilityException(Entity parent, Entity child, 
+                    AccountabilityType accountability_type, string message):
+                    base(parent, child, accountability_type, message)
+        {
+
+        }
+        public CycleAccountabilityException() { }
+        public CycleAccountabilityException(string message) : base(message) { }
+        public CycleAccountabilityException(string message, System.Exception inner) : base(message, inner) { }
+        protected CycleAccountabilityException(
+            System.Runtime.Serialization.SerializationInfo info,
+            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+    }
     
 }
