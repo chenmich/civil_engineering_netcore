@@ -13,8 +13,10 @@ namespace civil_engineering.essential.entities
         }
         public AccountabilityType(string name):this(new EntityId(name)){}
         
-        //below content are for test equality of two object
+        
+        
 
+        //below content are for test equality of two object
         public override bool Equals(object obj){
             if (obj == null || !this.GetType().Equals(obj.GetType()))
             {

@@ -1,4 +1,5 @@
 using System;
+using civil_engineering.essential.Exceptions;
 
 namespace civil_engineering.essential.entities
 {
@@ -21,12 +22,7 @@ namespace civil_engineering.essential.entities
             get;
             private set;
         }
-
-        public Accountability(IEntity parent, IEntity child, IAccountabilityType type, string acc_name)
-        :this(parent, child,type, new EntityId(acc_name)){
-            
-        }
-        public Accountability(IEntity parent, IEntity child, IAccountabilityType type, EntityId acc_id){
+        private Accountability(IEntity parent, IEntity child, IAccountabilityType type, EntityId acc_id){
             Id = acc_id;
             Parent = parent;
             Child = child;
@@ -34,12 +30,18 @@ namespace civil_engineering.essential.entities
             child.addParentAccountability(this);
             Type = type;
         }
-        public static void create(IEntity parent, IEntity child, IAccountabilityType type, string acc_name){
-            Accountability.create(parent, child, type, new EntityId(acc_name));
-        
+        public static IAccountability create(Entity parent, Entity child, 
+                                                IAccountabilityType accountability_type, EntityId accountability_id){
+            if(!canCreate(parent, child, accountability_type))
+                throw new InvalidAccountabilityException(parent, child, accountability_type, "Invalid Accountability");
+            else
+                return  new Accountability(parent, child, accountability_type, accountability_id);
+
         }
-        public static void create(IEntity parent, IEntity child, IAccountabilityType type, EntityId acc_id){
-            throw new NotImplementedException("The Accountability' create method for EntityId id");
+        static bool canCreate(Entity parent, Entity child, IAccountabilityType accountability_type){
+            if(parent.Equals(child)) return false;
+            if(parent.ancestorsInclude(child, accountability_type)) return false;
+            return true; 
         }
     }
 }

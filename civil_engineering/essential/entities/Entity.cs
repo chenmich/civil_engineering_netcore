@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using civil_engineering.essential.Exceptions;
 
 namespace civil_engineering.essential.entities{
     public  class Entity : IEntity
@@ -20,6 +21,7 @@ namespace civil_engineering.essential.entities{
             get;
             private set;
         }
+
         public virtual  HashSet<IEntity> Parent(){
             HashSet<IEntity> _result = new HashSet<IEntity>();
             foreach(IAccountability acc  in _parent_acc){
@@ -50,8 +52,15 @@ namespace civil_engineering.essential.entities{
             _children_acc.Add(accountability);
         }
 
-
-
+        public bool ancestorsInclude(IEntity entity, IAccountabilityType accountability_type){
+            foreach (Entity parent in ParentBy(accountability_type))
+            {
+                if(parent.Equals(entity)) return true;
+                if(parent.ancestorsInclude(entity, accountability_type)) return true;                
+            }
+            return false;
+        }
+        #region check Equality between two instances
         //The content below are for test quality between two objects
         public  bool Equals(IEntity other){
             if (ReferenceEquals(other, null))
@@ -75,7 +84,6 @@ namespace civil_engineering.essential.entities{
         public override int GetHashCode(){
             return Id.GetHashCode();
         }
-
         public static bool operator == (Entity entity1, Entity entity2){
             if (((object)entity1) == null || ((object)entity2) == null)
                     return Object.Equals(entity1, entity2);
@@ -88,7 +96,8 @@ namespace civil_engineering.essential.entities{
 
             return !entity1.Equals(entity2);
 
-        }   
+        }
+        #endregion  
 
     }
 

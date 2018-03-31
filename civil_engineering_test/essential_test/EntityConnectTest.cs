@@ -1,6 +1,7 @@
 using System;
 using Xunit;
 using civil_engineering.essential.entities;
+using civil_engineering.essential.Exceptions;
 
 namespace civil_engineering_test.essential_test
 {
@@ -13,8 +14,8 @@ namespace civil_engineering_test.essential_test
         Entity ls = new Entity(new EntityId("ls"));
 
         void setup(){
-            new Accountability(some_com, zs, affiliation, "zs in some_com");
-            new Accountability(some_com, ls, affiliation, "ls in some_com");
+             Accountability.create(some_com, zs, affiliation, new EntityId("zs in some_com"));
+             Accountability.create(some_com, ls, affiliation, new EntityId("ls in some_com"));
         }
 
         [Fact]
@@ -28,7 +29,7 @@ namespace civil_engineering_test.essential_test
         [Fact]
         public void testParent(){
             setup();
-            new Accountability(zs, ls, leadership, "zs is leader of ls");
+            Accountability.create(zs, ls, leadership, new EntityId("zs is leader of ls"));
             Assert.True(ls.Parent().Contains(some_com));
             Assert.True(ls.ParentBy(leadership).Contains(zs));
             Assert.Equal(ls.Parent().Count, 2);
@@ -39,11 +40,11 @@ namespace civil_engineering_test.essential_test
 
         [Fact]
         public void testCycle(){
-            Accountability.create(zs, ls, leadership, "zs lead the ls");
-            Assert.Throws<Exception>(()=>Accountability.create(ls, zs, leadership, "ls lead the zs"));
+            Accountability.create(zs, ls, leadership, new EntityId("zs lead the ls"));
+            Assert.Throws<InvalidAccountabilityException>(()=>Accountability.create(ls, zs, leadership, new EntityId("ls lead the zs")));
             Assert.True(!zs.Parent().Contains(ls));
             AccountabilityType modelMentor = new AccountabilityType("Model Mentor");
-            Accountability.create(ls, zs, modelMentor, "ls is Mentor");
+            Accountability.create(ls, zs, modelMentor, new EntityId("ls is Mentor"));
             Assert.True(zs.Parent().Contains(ls));
         }
     }
