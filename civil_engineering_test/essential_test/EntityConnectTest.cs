@@ -9,9 +9,9 @@ namespace civil_engineering_test.essential_test
     {
         AccountabilityType affiliation = new AccountabilityType("Affiliation");
         AccountabilityType leadership = new AccountabilityType("leadership");
-        Entity some_com = new Entity(new EntityId("some"));
-        Entity zs = new Entity(new EntityId("zs"));
-        Entity ls = new Entity(new EntityId("ls"));
+        Entity some_com = new Entity(new EntityId("some"), new EntityType(new EntityId("com")));
+        Entity zs = new Entity(new EntityId("zs"), new EntityType(new EntityId("zs")));
+        Entity ls = new Entity(new EntityId("ls"), new EntityType(new EntityId("ls")));
 
         void setup(){
              Accountability.create(some_com, zs, affiliation, new EntityId("zs in some_com"));

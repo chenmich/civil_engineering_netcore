@@ -8,15 +8,15 @@ namespace civil_engineering.essential.Exceptions
     {
         public IEntity Parent{
             get;
-            private set;
+            protected set;
         }
         public IEntity Child{
             get;
-            private set;
+            protected set;
         }
         public IAccountabilityType Type{
             get;
-            private set;
+            protected set;
         }
 
         public AccountabilityException(IEntity parent, IEntity child, IAccountabilityType type, string message):
@@ -62,6 +62,21 @@ namespace civil_engineering.essential.Exceptions
         protected CycleAccountabilityException(
             System.Runtime.Serialization.SerializationInfo info,
             System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+    }
+
+    [System.Serializable]
+    public class NotStisfiedRuleAccountabilityException : AccountabilityException
+    {
+        
+        public NotStisfiedRuleAccountabilityException() { }
+        public NotStisfiedRuleAccountabilityException(string message) : base(message) { }
+        public NotStisfiedRuleAccountabilityException(string message, System.Exception inner) : base(message, inner) { }
+        protected NotStisfiedRuleAccountabilityException(
+            System.Runtime.Serialization.SerializationInfo info,
+            System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+        public NotStisfiedRuleAccountabilityException(IEntity parent, IEntity child,
+                                            IAccountabilityType accountability_type, string message)
+                                            :base(parent, child, accountability_type, message){}
     }
     
 }

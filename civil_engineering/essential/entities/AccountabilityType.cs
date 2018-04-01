@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 
 namespace civil_engineering.essential.entities
 {
+    
     public class AccountabilityType: IAccountabilityType
     {
+        private HashSet<AccountabilityRule> _ruleSet = new HashSet<AccountabilityRule>();
         public EntityId Id{
             get;
             private set;
@@ -12,7 +15,9 @@ namespace civil_engineering.essential.entities
             Id = id;
         }
         public AccountabilityType(string name):this(new EntityId(name)){}
-        
+        public void addRule(IEntityType alloweParent, IEntityType alloweChild){
+            _ruleSet.Add(new AccountabilityRule(alloweChild, alloweParent));
+        }
         
         
 
