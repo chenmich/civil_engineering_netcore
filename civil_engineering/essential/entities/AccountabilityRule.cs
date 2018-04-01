@@ -14,5 +14,8 @@ namespace civil_engineering.essential.entities
             AlloweParent = alloweParent;
             AlloweChild = alloweChild;
         }
+        public bool isValidEntityType(IEntity parent, IEntity child){
+            return parent.Type.Equals(AlloweParent) && child.Type.Equals(AlloweChild);
+        }
     }
 }

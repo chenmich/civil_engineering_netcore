@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using civil_engineering.essential.Exceptions;
 
 namespace civil_engineering.essential.entities
 {
     
     public class AccountabilityType: IAccountabilityType
     {
-        private HashSet<AccountabilityRule> _ruleSet = new HashSet<AccountabilityRule>();
+        protected HashSet<AccountabilityRule> _ruleSet = new HashSet<AccountabilityRule>();
         public EntityId Id{
             get;
             private set;
@@ -16,8 +17,19 @@ namespace civil_engineering.essential.entities
         }
         public AccountabilityType(string name):this(new EntityId(name)){}
         public void addRule(IEntityType alloweParent, IEntityType alloweChild){
-            _ruleSet.Add(new AccountabilityRule(alloweChild, alloweParent));
+            _ruleSet.Add(new AccountabilityRule(alloweParent, alloweChild));
         }
+        public bool canCreateAccountability(IEntity parent, IEntity child){
+            return isValidEntityType(parent, child);
+        }
+        virtual protected bool isValidEntityType(IEntity parent, IEntity child){
+            foreach(AccountabilityRule rule in _ruleSet){
+                if(rule.isValidEntityType(parent, child))
+                    return true;
+            }
+            return false;          
+        } 
+
         
         
 

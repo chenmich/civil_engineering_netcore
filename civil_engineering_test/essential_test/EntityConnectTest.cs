@@ -7,21 +7,38 @@ namespace civil_engineering_test.essential_test
 {
     public class EntityConnectTest
     {
-        AccountabilityType affiliation = new AccountabilityType("Affiliation");
-        AccountabilityType leadership = new AccountabilityType("leadership");
-        Entity some_com = new Entity(new EntityId("some"), new EntityType(new EntityId("com")));
-        Entity zs = new Entity(new EntityId("zs"), new EntityType(new EntityId("zs")));
-        Entity ls = new Entity(new EntityId("ls"), new EntityType(new EntityId("ls")));
+        AccountabilityType affiliation;
+        AccountabilityType leadership;
+
+        EntityType employeer_type;
+        EntityType organization_type;
+        Entity some_com;
+        Entity zs ;
+        Entity ls;
 
         void setup(){
-             Accountability.create(some_com, zs, affiliation, new EntityId("zs in some_com"));
-             Accountability.create(some_com, ls, affiliation, new EntityId("ls in some_com"));
+            
+            affiliation = new AccountabilityType("Affiliation");
+            leadership = new AccountabilityType("leadership");
+
+            employeer_type = new EntityType(new EntityId("employeer type"));
+            organization_type = new EntityType(new EntityId("organization type"));
+            some_com = new Entity(new EntityId("some com"), organization_type);
+            zs = new Entity(new EntityId("zs"), employeer_type);
+            ls = new Entity(new EntityId("ls"), employeer_type);
+            
+            affiliation.addRule(organization_type, employeer_type);
+            leadership.addRule(employeer_type, employeer_type);
+
+            Accountability.create(some_com, zs, affiliation, new EntityId("zs in some_com"));
+            Accountability.create(some_com, ls, affiliation, new EntityId("ls in some_com"));
+            
         }
 
         [Fact]
         public void SimpleTest()
         {
-            setup();
+            setup();            
             Assert.True(some_com.Children().Contains(zs));
             Assert.True(ls.Parent().Contains(some_com)); 
         }
@@ -40,10 +57,12 @@ namespace civil_engineering_test.essential_test
 
         [Fact]
         public void testCycle(){
+            setup();
             Accountability.create(zs, ls, leadership, new EntityId("zs lead the ls"));
             Assert.Throws<CycleAccountabilityException>(()=>Accountability.create(ls, zs, leadership, new EntityId("ls lead the zs")));
             Assert.True(!zs.Parent().Contains(ls));
             AccountabilityType modelMentor = new AccountabilityType("Model Mentor");
+            modelMentor.addRule(employeer_type, employeer_type);
             Accountability.create(ls, zs, modelMentor, new EntityId("ls is Mentor"));
             Assert.True(zs.Parent().Contains(ls));
         }

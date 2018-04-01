@@ -25,10 +25,11 @@ public class EntityKnowledgeTest{
     }
     [Fact]
     public void testRule(){
+        setUp();
         Assert.Throws<NotStisfiedRuleAccountabilityException>(
             ()=> Accountability.create(zs, some_com, appointment, 
                                     new EntityId("zs appoint some_com")));
-        Assert.True(some_com.Parent().Contains(zs));
+        Assert.True(!some_com.Parent().Contains(zs));
     }
 
 }
