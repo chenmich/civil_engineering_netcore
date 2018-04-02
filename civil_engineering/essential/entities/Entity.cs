@@ -12,6 +12,7 @@ namespace civil_engineering.essential.entities{
         private  void register(){
             _entity_Collection.Add(Id, this);
         }
+        public Entity(){}
         public IEntityType Type{get; private set;}
 
         public Entity(EntityId id, IEntityType type){
