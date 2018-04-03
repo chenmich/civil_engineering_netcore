@@ -9,7 +9,8 @@ namespace civil_engineering.essential.entities
         public EntityType(EntityId id){
             Id = id;
         }
-        public EntityId Id{get; private set;}
+        public EntityType(){}
+        public EntityId Id{get; protected set;}
         
         //below content is for check equality
 
