@@ -33,7 +33,7 @@ namespace civil_engineering.essential.entities
         
         
 
-        //below content are for test equality of two object
+        #region for test equality of two object
         public override bool Equals(object obj){
             if (obj == null || !this.GetType().Equals(obj.GetType()))
             {
@@ -67,6 +67,7 @@ namespace civil_engineering.essential.entities
 
             return !type1.Equals(type2);
         }
+        #endregion
 
     }
 

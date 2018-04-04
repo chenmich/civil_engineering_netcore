@@ -16,6 +16,9 @@ namespace civil_engineering_test.part_test
                                 new EmployeerType());
             Person employeer_ls = builder
                 .buildPerson(new EntityId("ls"), new EmployeerType());
+            builder.setAccountability(employeer_zs, employeer_ls, 
+                    new leardAccountabilityType());
+
             
         }
 

@@ -15,9 +15,10 @@ namespace civil_engineering.parts
     }
 
     public class EmployeerType:PersonType{
+        private static readonly EntityId _Id = new EntityId("Employeer");
         public EmployeerType(EntityId id):this(){}
         public EmployeerType():base(){
-            Id = new EntityId("Employeer");
+            Id = _Id;
         }
     }
 }
