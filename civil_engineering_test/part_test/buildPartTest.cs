@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 using civil_engineering.parts;
-using civil_engineering.essential.entities
+using civil_engineering.essential.entities;
 
 namespace civil_engineering_test.part_test
 {
