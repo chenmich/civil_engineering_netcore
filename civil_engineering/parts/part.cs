@@ -11,10 +11,9 @@ namespace civil_engineering.parts
 
     public class Person: Part
     {
-        public Person():base(){
-            Id.Id = Guid.NewGuid();
+        public Person():base(){             
         }
-        public Person(EntityId id, IEntityType type):base(id, type){}
+        public Person(EntityId id){}
     }
     
 
